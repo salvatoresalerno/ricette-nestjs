@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "foreignKeys"
+}
+
+model categorie {
+  idCategory String    @id @db.VarChar(50)
+  category   String    @unique(map: "category") @db.VarChar(50)
+  thumbnail  String?   @db.VarChar(255)
+  ricette    ricette[]
+}
+
+model dettagli {
+  idDettagli      String        @id @db.VarChar(50)
+  idMeal          String        @db.VarChar(50)
+  strInstructions String?       @db.Text
+  strYoutube      String?       @db.VarChar(255)
+  ricette         ricette       @relation(fields: [idMeal], references: [idMeal], onDelete: NoAction, onUpdate: NoAction, map: "dettagli_ibfk_1")
+  ingredienti     ingredienti[]
+
+  @@index([idMeal], map: "idMeal")
+}
+
+model ingredienti {
+  idIngredient  String   @db.VarChar(50)
+  idDettagli    String   @db.VarChar(50)
+  strIngredient String   @db.VarChar(100)
+  strMeasure    String?  @db.VarChar(100)
+  dettagli      dettagli @relation(fields: [idDettagli], references: [idDettagli], onDelete: NoAction, onUpdate: NoAction, map: "ingredienti_ibfk_1")
+
+  @@id([idIngredient, idDettagli])
+  @@index([idDettagli], map: "idDettagli")
+}
+
+model lista_spesa {
+  idLista       String  @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  idUtente      String  @db.VarChar(36)
+  idMeal        String  @db.VarChar(45)
+  idIngrediente String  @db.VarChar(36)
+  ingrediente   String  @db.VarChar(100)
+  quantita      String  @db.VarChar(100)
+  acquistato    Boolean @default(false)
+}
+
+model preferiti {
+  idPreferito String @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  idUtente    String @db.VarChar(36)
+  idMeal      String @db.VarChar(6)
+  
+}
+
+model ricette {
+  idMeal       String     @id @db.VarChar(50)
+  strMeal      String     @db.VarChar(100)
+  strMealThumb String?    @db.VarChar(255)
+  strCategory  String?    @db.VarChar(50)
+  strArea      String?    @db.VarChar(50)
+  strTags      String?    @db.Text
+  dettagli     dettagli[]
+  categorie    categorie? @relation(fields: [strCategory], references: [category], onDelete: NoAction, onUpdate: NoAction, map: "fk_ricette_categorie")
+
+  @@index([strCategory], map: "fk_ricette_categorie")
+}
+/* model preferiti {
+  idPreferito String @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  idUtente    String @db.VarChar(36)
+  idMeal      String @db.VarChar(6)
+  
+}
+
+model ricette {
+  idMeal       String     @id @db.VarChar(50)
+  strMeal      String     @db.VarChar(100)
+  strMealThumb String?    @db.VarChar(255)
+  strCategory  String?    @db.VarChar(50)
+  strArea      String?    @db.VarChar(50)
+  strTags      String?    @db.Text
+  dettagli     dettagli[]
+  categorie    categorie? @relation(fields: [strCategory], references: [category], onDelete: NoAction, onUpdate: NoAction, map: "fk_ricette_categorie")
+
+  @@index([strCategory], map: "fk_ricette_categorie")
+} */
+
+
+model pippo {
+  id    String     @id @db.VarChar(50)
+  nome  String?    @db.VarChar(50)
+  cognome String?    @db.VarChar(50)
+}
