@@ -182,10 +182,19 @@ export class ActionsService {
                 }, {})
             ) as RicettaListaSpesa[];
 
+            // Converti ogni ricetta e i suoi ingredienti
+            const ricetteConBoolean = grouped.map(ricetta => ({
+                ...ricetta,
+                listaSpesa: ricetta.listaSpesa.map(ingrediente => ({
+                ...ingrediente,
+                acquistato: Boolean(ingrediente.acquistato) // Converti 0/1 in false/true
+                }))
+            }));
+
             return {
                 success: true,
                 message: null,
-                data: grouped,
+                data: ricetteConBoolean,
                 error: null,
             }; 
         /* } catch (error) {
