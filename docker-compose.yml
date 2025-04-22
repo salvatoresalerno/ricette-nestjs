@@ -6,7 +6,9 @@ env_file: .env
 
 services:
   server:
-    build: .
+    build: 
+      context: .   
+      dockerfile: Dockerfile
     container_name: ricette-server
     restart: always
     expose:
