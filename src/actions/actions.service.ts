@@ -41,6 +41,23 @@ export class ActionsService {
          
     }
 
+    async getIdPreferiti(idUtente: string) {
+        const result = await this.databaseService.preferiti.findMany({
+            where: {
+                idUtente
+            }, select: {
+                idMeal: true
+            }
+        });
+
+        return {
+            success: true,
+            message: null,                
+            data: result,
+            error: null,
+        }; 
+    }
+
     async togglePreferito(bodyParams: TogglePreferitoDto): Promise<ResponseCompleta<null>> {
 
         const { idUtente, idMeal } = bodyParams;

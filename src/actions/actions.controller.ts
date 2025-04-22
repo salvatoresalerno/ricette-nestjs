@@ -13,6 +13,12 @@ export class ActionsController {
     return await this.actionsService.getAllCategory();
   }
 
+  @Get('getIdPreferiti/:idUtente')
+  async getIdPreferiti(@Param('idUtente', new ParseUUIDPipe()) idUtente: string) {
+
+    return await this.actionsService.getIdPreferiti(idUtente);
+  }
+
   @Post('toggle-preferito')
   async togglePreferito(@Body(new ValidationPipe({ whitelist: true })) bodyParams: TogglePreferitoDto) {
 
