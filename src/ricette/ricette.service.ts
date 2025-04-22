@@ -2,9 +2,11 @@ import { Injectable } from '@nestjs/common';
 //import { DatabaseService } from 'src/database/database.service';
 import { FindRicetteDto, GetRicettaParamsDto } from './dto/find-ricette.dto';
 import { Ricetta, RicettaFull } from './dto/ricette.dto';
+import { DatabaseService } from 'src/database/database.service';
+import { Prisma } from '@prisma/client';
 //import { Prisma } from 'generated/prisma';
-import { Prisma } from '../../generated/prisma'
-import { DatabaseService } from '../../src/database/database.service';
+//import { Prisma } from '../../_generatedXXX/prisma'
+//import { DatabaseService } from '../../src/database/database.service';
 
 @Injectable()
 export class RicetteService {

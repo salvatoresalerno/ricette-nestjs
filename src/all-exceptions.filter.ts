@@ -1,6 +1,6 @@
 import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpException, HttpStatus } from "@nestjs/common";
-import { Prisma } from "generated/prisma";
-import { PrismaClientKnownRequestError } from "generated/prisma/runtime/library";
+//import { Prisma } from "_generatedXXX/prisma";
+//import { PrismaClientKnownRequestError } from "_generatedXXX/prisma/runtime/library";
 
 @Catch()
 export class GlobalHttpExceptionFilter implements ExceptionFilter {
