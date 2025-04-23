@@ -72,6 +72,6 @@ export class DeleteIngredientiDto {
     @IsUUID(undefined, { each: true, message: 'Ogni ID deve essere un UUID valido' })
     @ArrayMinSize(1, { message: 'Almeno un ID è richiesto' })
     ids: string[];
-  }
+}
 
  
